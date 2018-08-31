@@ -14,7 +14,7 @@ import { User,allResources, createPost, allResourcesResponse, createPostResponse
 export class ResourcesComponent implements OnInit {
   resources$: Observable<Resource[]>;
   allResource: Resource[] = []
-  postAuthor: string = 'dev'
+  postAuthor: string = 'JPhan'
   titlePost: string = ''
   post: string = ''
   link: string = ''
@@ -37,11 +37,15 @@ export class ResourcesComponent implements OnInit {
     divRow.style.margin = "20px";
     var divColImg = document.createElement('div');
     divColImg.className = 'col col-sm-2';
+    var profileLink = document.createElement('a');
+    profileLink.href = "/userProfile";
     var img = document.createElement('img');
     img.className = 'rounded';
     img.height = 100;
     img.width = 100;
     img.style.marginTop = '30px';
+
+    
    
     // img.src = 'https://thefader-res.cloudinary.com/private_images/w_760,c_limit,f_auto,q_auto:best/GettyImages-968727464_u6ymkm/donald-trump-insults-lebron-james-twitter.jpg';
     img.src = 'https://png.pngtree.com/svg/20170602/person_1058425.png'
@@ -65,7 +69,8 @@ export class ResourcesComponent implements OnInit {
     link.innerHTML = "Go to source";
 
     div.appendChild(divRow);
-    divColImg.appendChild(img);
+    divColImg.appendChild(profileLink);
+    profileLink.appendChild(img);
     divRow.appendChild(divColImg);
     divRow.appendChild(panel);
     panel.appendChild(card);
@@ -98,7 +103,7 @@ export class ResourcesComponent implements OnInit {
       .subscribe((response) => {
         this.allResource = response.data.resources
         console.log(this.allResource)
-      for (var i = 0; i < this.allResource.length; i++) {
+      for (var i = this.allResource.length-1; i >= 0; i--) {
         this.newPanel(this.allResource[i].title, this.allResource[i].content, this.allResource[i].link);
         this.shareButton();
       }
